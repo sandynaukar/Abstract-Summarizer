@@ -1,129 +1,50 @@
-📄 Abstract Summarizer
+# Abstract Summarizer
 
-Abstract Summarizer is a powerful NLP-based tool that condenses long pieces of text into shorter, meaningful summaries while preserving key information and overall context.
-It leverages modern deep learning models to generate high-quality extractive and abstractive summaries.
+This repository contains various components for abstractive text summarization using the T5 (Text-to-Text Transfer Transformer) model. The project explores both using a pre-trained base T5 model and fine-tuning T5 for improved summarization, along with a demonstration application.
 
-📌 Table of Contents
+## Repository Structure
 
-Features
+The repository is organized into two main directories: `no-tuning` and `tuning`, each serving a distinct purpose in the summarization workflow, plus a main application in the root.
 
-Installation
+### `app.py` (Root Directory)
 
-Usage
+This `app.py` in the root directory serves as the primary demonstration of the project's capabilities. It is a Streamlit application designed to showcase summarization using a pre-trained, fine-tuned T5 model hosted on Hugging Face (`admin-sauce/t5-summarizer`). This is intended to be the user-facing application for quick and efficient summarization.
 
-Model Architecture
+### `no-tuning/`
 
-Dataset
+This directory focuses on demonstrating text summarization using a **generic, pre-trained `t5-base` model** without any custom fine-tuning. It provides a foundational understanding of how T5 can be used for summarization out-of-the-box.
 
-Results
+-   **`no-tuning/app.py`**: A Flask web application that provides a simple interface for abstractive summarization. Users can input raw text, and the application will generate a summary using the `t5-base` model. It also includes logic to handle and chunk larger input texts for processing.
+-   **`no-tuning/main.ipynb`**: A Jupyter Notebook illustrating the process of extracting text from various document formats (PDF, DOCX) and then summarizing the extracted content using the `t5-base` model. This notebook provides the experimental code for document processing, which can be integrated into summarization workflows.
+-   **`no-tuning/static/` & `no-tuning/templates/`**: These subdirectories contain the static assets (CSS) and HTML templates for the Flask web application, defining its user interface and styling.
 
-Contributing
+### `tuning/`
 
-🚀 Features
+This directory is dedicated to the aspects of **fine-tuning and evaluating T5 models** for specific summarization tasks. It contains scripts and resources related to training and benchmarking custom summarization models.
 
-✅ Extractive Summarization
-Selects the most important sentences directly from the original text.
+-   **`tuning/evaluate.py`**: A Python script designed for evaluating fine-tuned summarization models. It typically uses benchmark datasets (e.g., `big_patent`) and metrics like ROUGE to assess the performance of a model, such as `KipperDev/t5_summarizer_model`. This script helps in understanding the effectiveness of fine-tuning efforts.
+-   **`tuning/t5/`**: (Hypothesized) This subdirectory is expected to contain the core scripts or Jupyter Notebooks used for the actual fine-tuning process of the T5 model. This is where the base T5 model would be adapted using specific datasets to create specialized summarization models.
 
-✅ Abstractive Summarization
-Generates new, human-like summary sentences capturing the main ideas.
+## Models Used
 
-✅ Multiple Input Formats
+Throughout this project, the following T5 models are utilized:
 
-Plain text files
+-   **`t5-base`**: The generic, pre-trained T5 model used for baseline summarization in the `no-tuning` components.
+-   **`admin-sauce/t5-summarizer`**: A fine-tuned T5 model, likely developed within this project or an external resource, used in the main Streamlit `app.py` for high-performance summarization.
+-   **`KipperDev/t5_summarizer_model`**: Another fine-tuned T5 model, evaluated by the `tuning/evaluate.py` script, showcasing different fine-tuning outcomes or external model comparisons.
 
-PDF documents
+## Getting Started
 
-Web pages
+To run the different applications:
 
-✅ User-Friendly Interface
+-   **Streamlit Demo:**
+    ```bash
+    streamlit run app.py
+    ```
+-   **Flask Web App (no-tuning):**
+    ```bash
+    python no-tuning/app.py
+    ```
+    (Then navigate to `http://127.0.0.1:5000` in your browser)
 
-Command-line interface (CLI)
-
-Web-based UI
-
-⚙️ Installation
-1️⃣ Clone the repository
-git clone https://github.com/sandynaukar/Abstract-Summarizer.git
-
-2️⃣ Navigate to project directory
-cd Abstract-Summarizer
-
-3️⃣ Create virtual environment
-python -m venv venv
-
-4️⃣ Activate environment
-
-Windows
-
-venv\Scripts\activate
-
-
-macOS/Linux
-
-source venv/bin/activate
-
-5️⃣ Install dependencies
-pip install -r requirements.txt
-
-🧠 Usage
-▶ Command Line Interface
-
-Summarize a text file:
-
-python summarize.py --input path/to/your/textfile.txt --output summary.txt
-
-🌐 Web Interface
-
-Run:
-
-python app.py
-
-
-Open browser:
-
-http://localhost:5000
-
-🏗 Model Architecture
-
-This project uses BART (Bidirectional and Auto-Regressive Transformers) from the Hugging Face Transformers library.
-
-Why BART?
-
-Designed for sequence-to-sequence tasks
-
-Excellent for text generation & summarization
-
-Combines encoder-decoder transformer architecture
-
-📚 Dataset
-
-The model was fine-tuned on the CNN/Daily Mail Dataset, containing:
-
-📰 300,000+ news articles
-
-✍ Human-written summaries
-
-Widely used benchmark for summarization research.
-
-📊 Results
-
-Performance evaluated using ROUGE metrics:
-
-Metric	Score
-ROUGE-1	44.16
-ROUGE-2	21.28
-ROUGE-L	40.90
-
-👉 Indicates strong content retention and fluent summaries.
-
-🤝 Contributing
-
-Contributions are welcome!
-
-Fork the repository
-
-Create a feature branch
-
-Submit a pull request
-
-Feel free to improve models, UI, datasets, or performance.
+Further instructions for setting up environments and dependencies would be provided in individual component readmes or a `requirements.txt` file.
